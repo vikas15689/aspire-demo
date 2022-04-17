@@ -54,6 +54,7 @@ div.asp-text {
   font-family: sans-serif;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 
   &[data-inline] {
     display: inline-flex;

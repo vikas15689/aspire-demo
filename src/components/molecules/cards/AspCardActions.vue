@@ -8,10 +8,10 @@
     padding="0px 12px"
     gap="12px"
   >
-    <AspFlex direction="column" gap="8px" align="center" width="60px">
+    <AspFlex direction="column" gap="8px" align="center" width="60px" @click="toggleCardFreeze">
       <AspIcon name="freezecard" size="8x" fill="var(--color-3)" />
       <AspText :size="13" color="var(--color-3)" align="center" line-height="1.3" :weight="400"
-        >Freeze card
+        >{{ cardInstance.freeze ? "Unfreeze" : "Freeze" }} card
       </AspText>
     </AspFlex>
     <AspFlex direction="column" gap="8px" align="center" width="60px">
@@ -47,12 +47,28 @@ import AspFlex from "components/atoms/AspFlex.vue";
 import AspIcon from "components/atoms/AspIcon.vue";
 import AspText from "components/atoms/AspText.vue";
 
+import { useCardsStore } from "stores/cards-store";
+import { mapActions, mapState } from "pinia";
+
 export default defineComponent({
   name: "AspCardActions",
   components: {
     AspFlex,
     AspIcon,
     AspText
+  },
+  computed: {
+    ...mapState(useCardsStore, {
+      cards: "cardsByaddedOn",
+      activeCard: "activeCard",
+      cardInstance: state => state.cardsByaddedOn[state.activeCard - 1]
+    })
+  },
+  methods: {
+    ...mapActions(useCardsStore, ["toggleFreeze"]),
+    toggleCardFreeze() {
+      this.toggleFreeze(this.cardInstance.id, !this.cardInstance.freeze);
+    }
   }
 });
 </script>

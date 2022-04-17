@@ -1,5 +1,5 @@
 <template>
-  <div class="asp-card">
+  <div class="asp-card" :data-freeze="freeze">
     <div class="asp-card__content" :style="style">
       <div class="asp-card__content__brand">
         <AspSvg name="aspire-card-logo" fill="var(--color-1)" :size="[74, 21]" />
@@ -16,7 +16,7 @@
           <AspText :size="52" :weight="800" class="asp-card__content__dot"
             >&#183;&#183;&#183;&#183;</AspText
           >
-          <AspText :size="14" :weight="800" class="asp-card__content__last-four">{{
+          <AspText :size="14" :weight="800" class="asp-card__content__number">{{
             cardNumberArray[3]
           }}</AspText>
         </template>
@@ -26,7 +26,8 @@
           :key="idx"
           :size="14"
           :weight="800"
-          class="asp-card__content__last-four"
+          :lineHeight="'18px'"
+          class="asp-card__content__number"
           >{{ num }}</AspText
         >
       </AspFlex>
@@ -44,7 +45,7 @@
         <AspSvg name="visa" :size="[59, 20]" />
       </div>
     </div>
-    <div class="asp-card__show-number" @click="showCardNumber = !showCardNumber">
+    <div v-if="!freeze" class="asp-card__show-number" @click="showCardNumber = !showCardNumber">
       <AspIcon name="eye" size="4x" />
       <AspText :size="12" :weight="500" color="var(--app-primary)"
         >{{ showCardNumber ? "Hide" : "Show" }} card number</AspText
@@ -77,7 +78,8 @@ export default defineComponent({
     lastname: String,
     number: { type: String as PropType<string>, required: true },
     thru: String,
-    cvv: String
+    cvv: String,
+    freeze: Boolean
   },
   data() {
     return {
@@ -139,10 +141,12 @@ export default defineComponent({
     &__dot {
       line-height: 18px !important;
       letter-spacing: -1px;
+      width: 55px;
     }
 
-    &__last-four {
-      letter-spacing: 4px;
+    &__number {
+      letter-spacing: 6px;
+      width: 55px;
     }
 
     &__logo {
@@ -169,6 +173,24 @@ export default defineComponent({
     right: 0px;
     position: absolute;
     z-index: 1;
+  }
+
+  &[data-freeze="true"] {
+    > * {
+      z-index: 1;
+    }
+    &:before {
+      position: absolute;
+      content: "";
+      top: 0px;
+      bottom: 0px;
+      left: 0px;
+      right: 0px;
+      border-radius: 12px;
+      background-color: #fff;
+      opacity: 0.5;
+      z-index: 2;
+    }
   }
 }
 </style>

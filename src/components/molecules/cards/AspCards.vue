@@ -9,6 +9,7 @@
         :number="c.number"
         :thru="c.thru"
         :cvv="c.cvv"
+        :freeze="c.freeze"
       />
     </div>
     <AspFlex gap="8px" align="center" width="100%" class="asp-cards__dot-container">
@@ -28,19 +29,15 @@ import { defineComponent } from "vue";
 import AspFlex from "components/atoms/AspFlex.vue";
 import AspCard from "components/molecules/cards/AspCard.vue";
 import { useCardsStore } from "stores/cards-store";
-import { mapState } from "pinia";
+import { mapActions, mapState } from "pinia";
 
 export default defineComponent({
   name: "AspCards",
-  data() {
-    return {
-      activeCard: 1
-    };
-  },
   computed: {
     ...mapState(useCardsStore, {
       cards: "cardsByaddedOn",
-      noOfCards: store => store.cardsByaddedOn.length
+      noOfCards: store => store.cardsByaddedOn.length,
+      activeCard: "activeCard"
     })
   },
   components: {
@@ -48,12 +45,14 @@ export default defineComponent({
     AspCard
   },
   methods: {
+    ...mapActions(useCardsStore, ["setActiveCard"]),
     handleMove() {
       const container = this.$refs["cards-conatiner"] as HTMLElement;
-      this.activeCard = +(container.scrollLeft / 350).toFixed(0) + 1;
-      if (this.activeCard > this.noOfCards) {
-        this.activeCard = this.noOfCards;
+      let activeCard = +(container.scrollLeft / 350).toFixed(0) + 1;
+      if (activeCard > this.noOfCards) {
+        activeCard = this.noOfCards;
       }
+      this.setActiveCard(activeCard);
     }
   }
 });
