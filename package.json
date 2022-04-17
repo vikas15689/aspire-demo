@@ -10,7 +10,8 @@
         "build": "quasar build",
         "lint": "eslint --ext .js,.ts,.vue ./ --cache --quiet",
         "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
-        "test": "echo \"No test specified\" && exit 0"
+        "test": "echo \"No test specified\" && exit 0",
+        "prepare": "husky install"
     },
     "dependencies": {
         "@quasar/extras": "^1.0.0",
@@ -42,10 +43,5 @@
         "node": "^18 || ^16 || ^14.19",
         "npm": ">= 6.13.4",
         "yarn": ">= 1.21.1"
-    },
-    "husky": {
-        "hooks": {
-            "pre-commit": "yarn lint --fix && yarn format "
-        }
     }
 }
