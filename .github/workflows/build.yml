@@ -18,8 +18,7 @@ jobs:
         run: yarn build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4.3.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BASE_BRANCH: master
-          BRANCH: pages
-          FOLDER: dist/spa
+        with:
+          branch: pages
+          folder: dist/spa
+          clean: true
