@@ -13,7 +13,13 @@
     <AspCardActions />
     <AspFlex padding="24px" gap="24px" width="100%" direction="column">
       <AspAccordion icon="details" label="Card details"></AspAccordion>
-      <AspAccordion icon="recent-transactions" label="Recent transactions" :open="true">
+      <AspAccordion
+        :action="true"
+        actionText="View all card transactions"
+        icon="recent-transactions"
+        label="Recent transactions"
+        :open="true"
+      >
         <template #content>
           <AspTransaction
             v-for="trn in transactions"

@@ -33,7 +33,7 @@ export default defineComponent({
       return {
         width: `${this.size[0]}px`,
         height: `${this.size[1]}px`,
-        fill: (this as any).fill
+        fill: this.fill
       };
     }
   }

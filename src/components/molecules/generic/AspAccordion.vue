@@ -31,6 +31,18 @@
     >
       <slot name="content" />
     </AspFlex>
+    <AspFlex
+      v-if="open && action"
+      class="asp-accordion-action"
+      height="50px"
+      align="center"
+      width="100%"
+      background="rgba(221, 255, 236, 1)"
+    >
+      <AspText :size="13" :weight="600" color="var(--app-primary)">
+        {{ actionText }}
+      </AspText>
+    </AspFlex>
   </AspFlex>
 </template>
 
@@ -60,6 +72,14 @@ export default defineComponent({
     open: {
       type: Boolean,
       default: false
+    },
+    action: {
+      type: Boolean,
+      default: false
+    },
+    actionText: {
+      type: String,
+      default: ""
     }
   }
 });
@@ -91,6 +111,10 @@ export default defineComponent({
   border-right: 1px solid var(--color-10);
   border-bottom: 1px solid var(--color-10);
 
+  // border-bottom-left-radius: 8px;
+  // border-bottom-right-radius: 8px;
+}
+.asp-accordion-action {
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }
