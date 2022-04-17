@@ -18,7 +18,7 @@
         <AspText :size="14" :weight="800" class="asp-card__content__last-four">2020</AspText>
       </AspFlex>
       <AspFlex align="flex-start center" padding="17px 0px 0px 0px" gap="30px">
-        <AspText :size="14" :weight="800">Thru: 12/20</AspText>
+        <AspText :size="14" :weight="800">Thru: 12/22</AspText>
 
         <AspFlex align="center" height="14px" gap="4px">
           <AspText :size="14" :weight="800">CVV: </AspText>
