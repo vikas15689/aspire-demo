@@ -1,8 +1,19 @@
-# Aspire (aspire-demo)
+# ![Logo](https://user-images.githubusercontent.com/63344337/163733191-fbff241d-f081-45b0-8ba8-4a702f7e98c5.svg) Aspire (aspire-demo)
 
-Aspire assignment
+This is an assignment project using Vue 3 and Quasar.
 
-## Install the dependencies
+## Prerequisites
+You will need [Node.js](https://nodejs.org) version 12.0 or greater installed on your system.
+
+## Setup
+
+Get the code by either cloning this repository using git
+
+    > git clone git@github.com:vikas15689/aspire-demo.git
+
+... or [downloading source code](https://github.com/vikas15689/aspire-demo/archive/refs/heads/main.zip) code as a zip archive.
+
+Once downloaded, open the terminal in the project directory, and continue with:
 
 ```bash
 yarn
@@ -10,10 +21,12 @@ yarn
 npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Compiles and hot-reloads for development
 
 ```bash
 yarn start
+# or
+npm run start
 ```
 
 ### Application is hosted [here](https://aspire-demo.surge.sh/#/)
