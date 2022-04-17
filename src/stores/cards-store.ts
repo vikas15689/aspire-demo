@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { defineStore } from "pinia";
 
+let idStart = 2;
 type Card = {
   firstname: string;
   lastname: string;
@@ -61,6 +62,35 @@ export const useCardsStore = defineStore("cards", {
       if (card && idx > -1) {
         this.cards.splice(idx, 1, { ...card, freeze: val });
       }
+    },
+    cancelCard(cardid: number) {
+      const idx = this.cards.findIndex(c => c.id === cardid);
+      if (idx > -1) {
+        this.cards.splice(idx, 1);
+      }
+    },
+    addCard(firstname: string, lastname: string) {
+      let number = "";
+      for (let i = 0; i < 4; i++) {
+        number += Math.floor(1000 + Math.random() * 9000);
+      }
+
+      const cvv = Math.floor(100 + Math.random() * 900);
+      const month = Math.floor(Math.random() * (12 - 1 + 1)) + 1;
+      const id = idStart + 1;
+      idStart += 1;
+      const card: Card = {
+        firstname,
+        number,
+        lastname,
+        freeze: false,
+        cvv: `${cvv}`,
+        thru: `${month}/27`,
+        addedOn: new Date().getTime(),
+        id
+      };
+
+      this.cards.push(card);
     }
   }
 });

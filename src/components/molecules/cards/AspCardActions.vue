@@ -32,12 +32,32 @@
         >Replace card
       </AspText>
     </AspFlex>
-    <AspFlex direction="column" gap="8px" align="center" width="60px">
+    <AspFlex direction="column" gap="8px" align="center" width="60px" @click="showConfirm = true">
       <AspIcon name="cancelcard" size="8x" fill="var(--color-3)" />
       <AspText :size="13" color="var(--color-3)" align="center" line-height="1.3" :weight="400"
         >Cancel card
       </AspText>
     </AspFlex>
+    <q-dialog v-model="showConfirm" persistent>
+      <q-card>
+        <q-card-section class="row items-center" v-if="cards.length > 1">
+          <span class="q-ml-sm">Are you sure you want to Cancel this card?</span>
+        </q-card-section>
+        <q-card-section v-if="cards.length === 1" class="row items-center">
+          <span class="q-ml-sm">You must have atleast one card</span>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn v-if="cards.length > 1" flat label="No" v-close-popup />
+          <q-btn
+            flat
+            :label="cards.length > 1 ? 'Yes' : 'Ok'"
+            color="primary"
+            @click="cancelActiveCard"
+            v-close-popup
+          />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </AspFlex>
 </template>
 
@@ -57,6 +77,11 @@ export default defineComponent({
     AspIcon,
     AspText
   },
+  data() {
+    return {
+      showConfirm: false
+    };
+  },
   computed: {
     ...mapState(useCardsStore, {
       cards: "cardsByaddedOn",
@@ -65,9 +90,14 @@ export default defineComponent({
     })
   },
   methods: {
-    ...mapActions(useCardsStore, ["toggleFreeze"]),
+    ...mapActions(useCardsStore, ["toggleFreeze", "cancelCard"]),
     toggleCardFreeze() {
       this.toggleFreeze(this.cardInstance.id, !this.cardInstance.freeze);
+    },
+    cancelActiveCard() {
+      if (this.cards.length > 1) {
+        this.cancelCard(this.cardInstance.id);
+      }
     }
   }
 });
