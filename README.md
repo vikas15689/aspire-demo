@@ -16,28 +16,8 @@ npm install
 yarn start
 ```
 
-### Lint the files
+### To view mobile version on desktop browser, please select appropriate Divice or dimention like below
 
-```bash
-yarn lint
-# or
-npm run lint
-```
 
-### Format the files
+![Screenshot 2022-04-17 at 7 18 24 PM](https://user-images.githubusercontent.com/63344337/163717275-f5d593a7-eb1d-46d2-a3fe-0910f0b55d8b.png)
 
-```bash
-yarn format
-# or
-npm run format
-```
-
-### Build the app for production
-
-```bash
-quasar build
-```
-
-### Customize the configuration
-
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
