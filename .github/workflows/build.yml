@@ -16,9 +16,8 @@ jobs:
           cmd: install
       - name: Build
         run: yarn build
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.3.0
+      - uses: actions/setup-node@v3
         with:
-          branch: pages
-          folder: dist/spa
-          clean: true
+        node-version: "16"
+      - run: npm install -g surge
+      - run: surge dist/spa ${{ secrets.ASPIRE_SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
