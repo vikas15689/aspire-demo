@@ -16,7 +16,7 @@ npm install
 yarn start
 ```
 
-### this application is hosted [here](https://aspire-demo.surge.sh/#/)
+### Application is hosted [here](https://aspire-demo.surge.sh/#/)
 
 ### To view mobile version on desktop browser, please select appropriate Device or dimention like below
 
