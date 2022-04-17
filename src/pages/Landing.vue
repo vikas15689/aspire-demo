@@ -6,33 +6,13 @@
       <AspCard v-for="c in noOfCards" :key="c" />
     </AspCards>
     <AspFlex v-if="$q.platform.is.desktop" padding="24px" width="100%" flex="1 0 auto">
-      <AspLandingCard />
+      <AspCardDetails />
     </AspFlex>
   </div>
   <AspActions v-if="$q.platform.is.mobile">
     <AspCardActions />
     <AspFlex padding="24px" gap="24px" width="100%" direction="column">
-      <AspAccordion icon="details" label="Card details"></AspAccordion>
-      <AspAccordion
-        :action="true"
-        actionText="View all card transactions"
-        icon="recent-transactions"
-        label="Recent transactions"
-        :open="true"
-      >
-        <template #content>
-          <AspTransaction
-            v-for="trn in transactions"
-            :key="trn.id"
-            :name="trn.name"
-            :amount="trn.amount"
-            :colors="trn.colors"
-            :type="trn.type"
-            :icon="trn.icon"
-            :date="trn.date"
-          />
-        </template>
-      </AspAccordion>
+      <AspCardAccordions></AspCardAccordions>
     </AspFlex>
   </AspActions>
 </template>
@@ -40,7 +20,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import AspLandingCard from "components/layout/AspLandingCard.vue";
 import AccountInfo from "components/molecules/account/AspAccountInfo.vue";
 import AspTabs from "components/molecules/account/AspTabs.vue";
 import AspCard from "components/molecules/cards/AspCard.vue";
@@ -48,9 +27,8 @@ import AspCards from "components/molecules/cards/AspCards.vue";
 import AspActions from "components/molecules/generic/AspActions.vue";
 import AspCardActions from "components/molecules/cards/AspCardActions.vue";
 import AspFlex from "components/atoms/AspFlex.vue";
-import AspAccordion from "components/molecules/generic/AspAccordion.vue";
-import AspTransaction from "components/molecules/cards/AspTransaction.vue";
-import { transactions } from "../boot/data";
+import AspCardAccordions from "components/molecules/cards/AspCardAccordions.vue";
+import AspCardDetails from "components/molecules/cards/desktop/AspCardDetails.vue";
 
 export default defineComponent({
   name: "Landing",
@@ -62,15 +40,8 @@ export default defineComponent({
     AspActions,
     AspCardActions,
     AspFlex,
-    AspAccordion,
-    AspTransaction,
-    AspLandingCard
-  },
-  data() {
-    return {
-      noOfCards: 10,
-      transactions
-    };
+    AspCardDetails,
+    AspCardAccordions
   }
 });
 </script>

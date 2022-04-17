@@ -3,6 +3,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { defineComponent, PropType } from "vue";
 
 const svgIndex = import.meta.globEager("./../../assets/svg/*.svg");
