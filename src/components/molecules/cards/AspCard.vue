@@ -4,21 +4,34 @@
       <div class="asp-card__content__brand">
         <AspSvg name="aspire-card-logo" fill="var(--color-1)" :size="[74, 21]" />
       </div>
-      <AspText :size="22" :weight="800">Mark Henry</AspText>
+      <AspText :size="22" :weight="800">{{ firstname }} {{ lastname }}</AspText>
       <AspFlex align="flex-start center" padding="24px 0px 0px 0px" gap="24px">
-        <AspText :size="52" :weight="800" class="asp-card__content__dot"
-          >&#183;&#183;&#183;&#183;</AspText
+        <template v-if="!showCardNumber">
+          <AspText :size="52" :weight="800" class="asp-card__content__dot"
+            >&#183;&#183;&#183;&#183;</AspText
+          >
+          <AspText :size="52" :weight="800" class="asp-card__content__dot"
+            >&#183;&#183;&#183;&#183;</AspText
+          >
+          <AspText :size="52" :weight="800" class="asp-card__content__dot"
+            >&#183;&#183;&#183;&#183;</AspText
+          >
+          <AspText :size="14" :weight="800" class="asp-card__content__last-four">{{
+            cardNumberArray[3]
+          }}</AspText>
+        </template>
+        <AspText
+          v-else
+          v-for="(num, idx) in cardNumberArray"
+          :key="idx"
+          :size="14"
+          :weight="800"
+          class="asp-card__content__last-four"
+          >{{ num }}</AspText
         >
-        <AspText :size="52" :weight="800" class="asp-card__content__dot"
-          >&#183;&#183;&#183;&#183;</AspText
-        >
-        <AspText :size="52" :weight="800" class="asp-card__content__dot"
-          >&#183;&#183;&#183;&#183;</AspText
-        >
-        <AspText :size="14" :weight="800" class="asp-card__content__last-four">2020</AspText>
       </AspFlex>
       <AspFlex align="flex-start center" padding="17px 0px 0px 0px" gap="30px">
-        <AspText :size="14" :weight="800">Thru: 12/22</AspText>
+        <AspText :size="14" :weight="800">Thru: {{ thru }}</AspText>
 
         <AspFlex align="center" height="14px" gap="4px">
           <AspText :size="14" :weight="800">CVV: </AspText>
@@ -31,15 +44,17 @@
         <AspSvg name="visa" :size="[59, 20]" />
       </div>
     </div>
-    <div class="asp-card__show-number">
+    <div class="asp-card__show-number" @click="showCardNumber = !showCardNumber">
       <AspIcon name="eye" size="4x" />
-      <AspText :size="12" :weight="500" color="var(--app-primary)">Show card number</AspText>
+      <AspText :size="12" :weight="500" color="var(--app-primary)"
+        >{{ showCardNumber ? "Hide" : "Show" }} card number</AspText
+      >
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 import AspSvg from "components/atoms/AspSvg.vue";
 import AspText from "components/atoms/AspText.vue";
 import AspIcon from "components/atoms/AspIcon.vue";
@@ -57,13 +72,32 @@ export default defineComponent({
     background: {
       type: String,
       default: "var(--app-primary)"
-    }
+    },
+    firstname: String,
+    lastname: String,
+    number: { type: String as PropType<string>, required: true },
+    thru: String,
+    cvv: String
+  },
+  data() {
+    return {
+      showCardNumber: false
+    };
   },
   computed: {
     style() {
       return {
         backgroundColor: this.background
       };
+    },
+    cardNumberArray() {
+      const cardNumber = [...this.number];
+      const cardNumberChunks: string[] = [];
+      cardNumberChunks.push(cardNumber.slice(0, 4).join(""));
+      cardNumberChunks.push(cardNumber.slice(4, 8).join(""));
+      cardNumberChunks.push(cardNumber.slice(8, 12).join(""));
+      cardNumberChunks.push(cardNumber.slice(12, 16).join(""));
+      return cardNumberChunks;
     }
   }
 });
@@ -119,6 +153,7 @@ export default defineComponent({
   }
 
   &__show-number {
+    cursor: pointer;
     display: flex;
     padding: 6px 10px;
     border-top-left-radius: 6px;

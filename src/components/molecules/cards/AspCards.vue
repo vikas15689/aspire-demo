@@ -1,15 +1,23 @@
 <template>
   <AspFlex direction="column" gap="16px" width="100%">
     <div class="asp-cards" ref="cards-conatiner" @scroll="handleMove">
-      <slot />
+      <AspCard
+        v-for="c in cards"
+        :key="c.id"
+        :firstname="c.firstname"
+        :lastname="c.lastname"
+        :number="c.number"
+        :thru="c.thru"
+        :cvv="c.cvv"
+      />
     </div>
     <AspFlex gap="8px" align="center" width="100%" class="asp-cards__dot-container">
       <!-- <div class="asp-cards__dot asp-cards__dot-active"></div> -->
       <div
+        v-for="(d, idx) in cards"
+        :key="d.id"
         class="asp-cards__dot"
-        :class="{ 'asp-cards__dot-active': activeCard === d }"
-        v-for="d in noOfCards"
-        :key="d"
+        :class="{ 'asp-cards__dot-active': activeCard === idx + 1 }"
       ></div>
     </AspFlex>
   </AspFlex>
@@ -18,22 +26,26 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import AspFlex from "components/atoms/AspFlex.vue";
+import AspCard from "components/molecules/cards/AspCard.vue";
+import { useCardsStore } from "stores/cards-store";
+import { mapState } from "pinia";
 
 export default defineComponent({
   name: "AspCards",
-  props: {
-    noOfCards: {
-      type: Number,
-      default: 0
-    }
-  },
   data() {
     return {
       activeCard: 1
     };
   },
+  computed: {
+    ...mapState(useCardsStore, {
+      cards: "cardsByaddedOn",
+      noOfCards: store => store.cardsByaddedOn.length
+    })
+  },
   components: {
-    AspFlex
+    AspFlex,
+    AspCard
   },
   methods: {
     handleMove() {

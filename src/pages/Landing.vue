@@ -2,9 +2,7 @@
   <div class="asp-cards-landing-info">
     <AccountInfo />
     <AspTabs />
-    <AspCards v-if="$q.platform.is.mobile" :noOfCards="noOfCards">
-      <AspCard v-for="c in noOfCards" :key="c" />
-    </AspCards>
+    <AspCards v-if="$q.platform.is.mobile"> </AspCards>
     <AspFlex v-if="$q.platform.is.desktop" padding="24px" width="100%" flex="1 0 auto">
       <AspCardDetails />
     </AspFlex>
@@ -22,7 +20,6 @@ import { defineComponent } from "vue";
 
 import AccountInfo from "components/molecules/account/AspAccountInfo.vue";
 import AspTabs from "components/molecules/account/AspTabs.vue";
-import AspCard from "components/molecules/cards/AspCard.vue";
 import AspCards from "components/molecules/cards/AspCards.vue";
 import AspActions from "components/molecules/generic/AspActions.vue";
 import AspCardActions from "components/molecules/cards/AspCardActions.vue";
@@ -35,13 +32,17 @@ export default defineComponent({
   components: {
     AccountInfo,
     AspTabs,
-    AspCard,
     AspCards,
     AspActions,
     AspCardActions,
     AspFlex,
     AspCardDetails,
     AspCardAccordions
+  },
+  data() {
+    return {
+      noOfCards: 3
+    };
   }
 });
 </script>

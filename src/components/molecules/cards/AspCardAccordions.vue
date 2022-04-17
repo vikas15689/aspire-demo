@@ -29,7 +29,7 @@ import AspTransaction from "./../cards/AspTransaction.vue";
 import AspAccordion from "./../generic/AspAccordion.vue";
 import { mapState } from "pinia";
 
-import { useTransactionStore } from "stores/transactions";
+import { useTransactionStore } from "stores/transactions-store";
 
 export default defineComponent({
   name: "AspCardAccordions",

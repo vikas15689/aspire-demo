@@ -13,7 +13,7 @@ type Transaction = {
 type TransactionsState = {
   transactions: Transaction[];
 };
-export const useTransactionStore = defineStore("counter", {
+export const useTransactionStore = defineStore("transactions", {
   state: () =>
     ({
       transactions: [
